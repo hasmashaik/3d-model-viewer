@@ -9,6 +9,17 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
-  }
+    sourcemap: true,
+    // Ensure assets are properly handled
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'three'],
+        },
+      },
+    },
+  },
+  // Important for Render deployment
+  base: '/',
 })
