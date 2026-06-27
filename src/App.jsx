@@ -9,6 +9,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/ar" element={<ARPage />} />
+        {/* Redirect any other routes to AR for QR code scanning */}
+        <Route path="*" element={<ARPage />} />
       </Routes>
     </div>
   )

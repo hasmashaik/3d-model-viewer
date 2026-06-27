@@ -4,20 +4,20 @@ import QRCode from 'qrcode.react'
 const QRCodeGenerator = ({ value, size = 200 }) => {
   const [copied, setCopied] = useState(false)
 
+  // Create AR-specific URL
+  const arUrl = value ? `${value}/ar` : `${window.location.origin}/ar`
+
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(value)
+    navigator.clipboard.writeText(arUrl)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
-
-  // Get current URL for QR code
-  const currentUrl = window.location.origin
 
   return (
     <div className="flex flex-col items-center space-y-4">
       <div className="bg-white p-4 rounded-xl shadow-lg">
         <QRCode
-          value={value || currentUrl}
+          value={arUrl}  // QR code points to AR page
           size={size}
           bgColor="#ffffff"
           fgColor="#1a1a2e"
@@ -37,14 +37,14 @@ const QRCodeGenerator = ({ value, size = 200 }) => {
             onClick={handleCopyLink}
             className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-sm transition-colors"
           >
-            {copied ? '✓ Copied!' : 'Copy Link'}
+            {copied ? '✓ Copied!' : 'Copy AR Link'}
           </button>
           
           <button
-            onClick={() => window.open(value || currentUrl, '_blank')}
+            onClick={() => window.open(arUrl, '_blank')}
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors"
           >
-            Open URL
+            Open AR
           </button>
         </div>
       </div>
